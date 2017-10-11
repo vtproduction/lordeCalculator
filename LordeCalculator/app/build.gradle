@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 25
@@ -27,4 +29,11 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
     testCompile 'junit:junit:4.12'
+
+    compile 'com.jakewharton:butterknife:8.4.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.wdullaer:materialdatetimepicker:3.1.0'
+    compile 'joda-time:joda-time:2.3'
+    compile 'com.github.jaychang0917:SimpleRecyclerView:1.2.6'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
 }
