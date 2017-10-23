@@ -1,7 +1,8 @@
 package midsummer.lordecalculator.model.KQSX;
 
-import java.util.Arrays;
+import java.util.List;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -11,51 +12,61 @@ import io.realm.annotations.PrimaryKey;
 
 public class KQSX extends RealmObject{
     @PrimaryKey
-    public String date;
+    public long date;
 
-    public int[] results;
 
-    public String getDate() {
+    public RealmList<Integer> results;
+    
+
+    public long getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(long date) {
         this.date = date;
     }
 
-    public int[] getResults() {
+    public RealmList<Integer> getResults() {
         return results;
     }
 
-    public void setResults(int[] results) {
+    public void setResults(RealmList<Integer> results) {
         this.results = results;
     }
 
 
-    public int getGiaiDacbiet(){
-        return results[0];
+    public Integer getGiaiDacbiet(){
+        return getResults().get(0);
     }
 
-    public int getGiainhat(){
-        return results[1];
+    public Integer getGiainhat(){
+        return getResults().get(1);
     }
 
-    public int[] getGiaiNhi(){
-        return Arrays.copyOfRange(getResults(), 2,2);
+    public List<Integer> getGiaiNhi(){
+        return getResults().subList(2,2);
     }
-    public int[] getGiaiBa(){
-        return Arrays.copyOfRange(getResults(), 4,6);
+    public List<Integer> getGiaiBa(){
+        return getResults().subList(4,6);
     }
-    public int[] getGiaiBon(){
-        return Arrays.copyOfRange(getResults(), 10,4);
+    public List<Integer> getGiaiBon(){
+        return getResults().subList(10,4);
     }
-    public int[] getGiaiNam(){
-        return Arrays.copyOfRange(getResults(), 14,6);
+    public List<Integer> getGiaiNam(){
+        return getResults().subList(14,6);
     }
-    public int[] getGiaiSau(){
-        return Arrays.copyOfRange(getResults(), 20,3);
+    public List<Integer> getGiaiSau(){
+        return getResults().subList(20,3);
     }
-    public int[] getGiaiBay(){
-        return Arrays.copyOfRange(getResults(), 23,4);
+    public List<Integer> getGiaiBay(){
+        return getResults().subList(23,4);
+    }
+
+    public KQSX(long date, List<Integer> results) {
+
+        this.date = date;
+        RealmList<Integer> tmp = new RealmList<>();
+        tmp.addAll(results);
+        this.results = tmp;
     }
 }
