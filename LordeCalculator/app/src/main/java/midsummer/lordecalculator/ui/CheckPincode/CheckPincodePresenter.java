@@ -1,4 +1,4 @@
-package midsummer.lordecalculator.CheckPincode;
+package midsummer.lordecalculator.ui.CheckPincode;
 
 import android.content.Context;
 import android.content.SharedPreferences;

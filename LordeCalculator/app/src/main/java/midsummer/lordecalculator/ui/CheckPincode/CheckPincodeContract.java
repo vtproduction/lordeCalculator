@@ -1,4 +1,4 @@
-package midsummer.lordecalculator.CheckPincode;
+package midsummer.lordecalculator.ui.CheckPincode;
 
 /**
  * Created by NienLe on 11-Oct-17.

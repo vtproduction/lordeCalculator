@@ -12,8 +12,8 @@ import midsummer.lordecalculator.helper.DateTimeFormatHelper;
 public class KQSXRepository implements KQSXDataSource {
     private Realm realm;
 
-    public KQSXRepository() {
-        this.realm = Realm.getDefaultInstance();
+    public KQSXRepository(Realm realm) {
+        this.realm = realm;
     }
 
     @Override

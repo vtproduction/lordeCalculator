@@ -10,7 +10,7 @@ import io.realm.annotations.PrimaryKey;
 public class Merchant extends RealmObject {
 
     @PrimaryKey
-    public String id;
+    public int id;
     public String name;
     public String phone;
     public boolean isOwner;
@@ -20,11 +20,11 @@ public class Merchant extends RealmObject {
     public float rateXIEN;
     public long remainLoan;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LordeCalculator</string>
+    <string name="place_holder">Lorem Ipsum</string>
 </resources>

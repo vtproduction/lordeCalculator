@@ -11,8 +11,8 @@ import io.realm.Realm;
 public class MerchantRepository implements MerchantDataSource {
     private Realm realm;
 
-    public MerchantRepository() {
-        this.realm = Realm.getDefaultInstance();
+    public MerchantRepository(Realm realm) {
+        this.realm = realm;
     }
 
     @Override

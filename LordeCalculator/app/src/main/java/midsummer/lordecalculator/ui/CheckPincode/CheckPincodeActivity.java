@@ -1,4 +1,4 @@
-package midsummer.lordecalculator.CheckPincode;
+package midsummer.lordecalculator.ui.CheckPincode;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
