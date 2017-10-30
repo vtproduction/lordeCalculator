@@ -30,9 +30,10 @@ public interface AddLordeDataContract {
         void addToList(LordeData lordeData);
         void removeFromList(LordeData lordeData);
         void initData(Merchant merchant);
-        void validateValue();
-        void validateNumbers();
-        Context getContext();
+        boolean validateValue();
+        boolean validateNumbers();
+        void displayMessage(String message);
+
     }
 
 
