@@ -7,9 +7,9 @@ import java.util.List;
  */
 
 public interface MerchantDataSource {
-    Merchant getMerchantById(int merchantId);
+    Merchant getMerchantById(String merchantId);
     void addNewMerchant(Merchant merchant);
-    void updateMerchant(Merchant merchant);
-    void deleteMerchant(int merchantId);
+    void updateMerchant(String merchantId, String merchantName, String merchantPhone, boolean isOwner, float rateLO, float rateDE, float rateXIEN, long remainLoan);
+    void deleteMerchant(String merchantId);
     List<Merchant> getAllMerchants();
 }

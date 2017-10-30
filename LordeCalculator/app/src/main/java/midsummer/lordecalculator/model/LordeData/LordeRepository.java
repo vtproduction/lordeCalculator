@@ -1,8 +1,6 @@
 package midsummer.lordecalculator.model.LordeData;
 
 import io.realm.Realm;
-import io.realm.RealmList;
-import midsummer.lordecalculator.helper.RandomString;
 
 /**
  * Created by NIENLM on 10/24/17.
@@ -16,20 +14,21 @@ public class LordeRepository implements LordeDataSource {
     }
 
     @Override
-    public String setLordeData(RealmList<Integer> numbers, int value, int type) {
-        String id = new RandomString(16).nextString();
+    public long setLordeData(final LordeData lordeData) {
+        /*String id = new RandomString(6).nextString();
+        long now = DateTime.now().getMillis();
         final LordeData lordeData = new LordeData();
-        lordeData.setId(id);
+        lordeData.setId(now + Long.parseLong(id));
         lordeData.setNumbers(numbers);
         lordeData.setValue(value);
-        lordeData.setType(type);
+        lordeData.setType(type);*/
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
                 realm.copyToRealmOrUpdate(lordeData);
             }
         });
-        return id;
+        return lordeData.getId();
     }
 
 

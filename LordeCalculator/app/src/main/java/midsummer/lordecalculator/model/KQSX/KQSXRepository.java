@@ -3,6 +3,7 @@ package midsummer.lordecalculator.model.KQSX;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmList;
 import midsummer.lordecalculator.helper.DateTimeFormatHelper;
 
 /**
@@ -45,11 +46,21 @@ public class KQSXRepository implements KQSXDataSource {
     }
 
     @Override
-    public void updateKQSX(final KQSX data) {
+    public void updateKQSX(final long dt, final List<Integer> data) {
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                realm.copyToRealmOrUpdate(data);
+                KQSX kqsx = getKQSX(dt);
+                if (kqsx != null){
+                    RealmList<Integer> tmp = new RealmList<Integer>();
+                    tmp.addAll(data);
+                    kqsx.setResults(tmp);
+                    realm.copyToRealmOrUpdate(kqsx);
+                }else {
+                    kqsx = new KQSX(dt, data);
+                    realm.copyToRealmOrUpdate(kqsx);
+                }
+
             }
         });
     }

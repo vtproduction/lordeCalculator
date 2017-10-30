@@ -11,5 +11,5 @@ public interface KQSXDataSource {
     KQSX getLastestKQSX();
     List<KQSX> getKQSXBetween(long from, long to);
     void setKQSX(List<Integer> data);
-    void updateKQSX(KQSX kqsx);
+    void updateKQSX(final long dt, final List<Integer> data);
 }

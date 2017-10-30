@@ -13,6 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import midsummer.lordecalculator.R;
 import midsummer.lordecalculator.helper.LogUtil;
+import midsummer.lordecalculator.helper.StringUtil;
 import midsummer.lordecalculator.model.Merchant.Merchant;
 
 /**
@@ -42,7 +43,7 @@ public class MerchantDataCell extends SimpleCell<Merchant, MerchantDataCell.Merc
 
     @Override
     protected void onBindViewHolder(@NonNull MerchantDataViewHolder merchantDataViewHolder, int i, @NonNull Context context, Object o) {
-
+        merchantDataViewHolder.setData(getItem());
     }
 
     public class MerchantDataViewHolder extends SimpleViewHolder {
@@ -64,13 +65,27 @@ public class MerchantDataCell extends SimpleCell<Merchant, MerchantDataCell.Merc
         public MerchantDataViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    callback.onClick(merchant);
+                }
+            });
         }
 
 
         public void setData(Merchant merchant){
             try {
                 this.merchant = merchant;
-                
+                txtMerchantName.setText(merchant.getName());
+                txtLabelOwner.setVisibility(merchant.isOwner() ? View.VISIBLE : View.GONE);
+                txtMerchantPhone.setText(merchant.getPhone());
+                txtRateDe.setText("ĐỀ: \n" + merchant.getRateDE());
+                txtRateLo.setText("LÔ: \n" + merchant.getRateLO());
+                txtRateXien.setText("XIÊN: \n" + merchant.getRateXIEN());
+
+                txtRemainLoan.setText(StringUtil.formatConcurrency(merchant.remainLoan));
+                txtRemainLoan.setTextColor(merchant.remainLoan < 0 ? context.getResources().getColor(R.color.colorRed) : context.getResources().getColor(R.color.colorGreen));
             }catch (Exception e){
                 LogUtil.e(e);
             }
@@ -80,7 +95,5 @@ public class MerchantDataCell extends SimpleCell<Merchant, MerchantDataCell.Merc
 
     public interface MerchantDataCellClickListener{
         void onClick(Merchant merchant);
-        void onEdit(Merchant merchant);
-        void onDelete(Merchant merchant);
     }
 }

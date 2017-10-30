@@ -1,5 +1,6 @@
 package midsummer.lordecalculator.ui.CheckPincode;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import midsummer.lordecalculator.R;
 import midsummer.lordecalculator.helper.KeyboardUtil;
+import midsummer.lordecalculator.ui.home.HomeActivity;
 
 /**
  * Created by NienLe on 11-Oct-17.
@@ -63,5 +65,6 @@ public class CheckPincodeActivity extends AppCompatActivity implements CheckPinc
     public void navigateToMain() {
 
         KeyboardUtil.hideSoftKeyboard(this);
+        startActivity(new Intent(this, HomeActivity.class));
     }
 }

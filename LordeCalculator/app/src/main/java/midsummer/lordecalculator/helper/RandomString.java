@@ -44,15 +44,22 @@ public class RandomString {
     /**
      * Create an alphanumeric string generator.
      */
-    public RandomString(int length, Random random) {
-        this(length, random, alphanum);
+
+    public RandomString(int length, Random random, boolean numberOnly) {
+        this(length, random, numberOnly ? digits : alphanum);
     }
+
+
 
     /**
      * Create an alphanumeric strings from a secure generator.
      */
     public RandomString(int length) {
-        this(length, new SecureRandom());
+        this(length, new SecureRandom(), false);
+    }
+
+    public RandomString(int length, boolean numberOnly) {
+        this(length, new SecureRandom(), numberOnly);
     }
 
     /**

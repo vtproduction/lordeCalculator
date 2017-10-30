@@ -11,17 +11,26 @@ import io.realm.annotations.PrimaryKey;
 public class LordeData extends RealmObject {
 
     @PrimaryKey
-    public String id;
+    public long id;
 
     public int type;
     public RealmList<Integer> numbers;
     public int value;
+    public long merChantId;
 
-    public String getId() {
+    public long getMerChantId() {
+        return merChantId;
+    }
+
+    public void setMerChantId(long merChantId) {
+        this.merChantId = merChantId;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 

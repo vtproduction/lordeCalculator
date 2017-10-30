@@ -35,4 +35,18 @@ public class DateTimeFormatHelper {
             return 0;
         }
     }
+
+    public static String FormatDateTime(DateTime dateTime){
+        try {
+            DateTimeFormatter dtfOut = DateTimeFormat.forPattern("dd / MM / yyyy");
+            int dayOfWeek = dateTime.getDayOfWeek();
+
+            return StringUtil.formatDateName(dayOfWeek) + " " + dtfOut.print(dateTime);
+        }catch (Exception e){
+            LogUtil.e(e);
+            return "";
+        }
+    }
+
+
 }

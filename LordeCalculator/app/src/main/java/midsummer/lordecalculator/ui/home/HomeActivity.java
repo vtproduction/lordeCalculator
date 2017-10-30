@@ -1,5 +1,6 @@
 package midsummer.lordecalculator.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,6 +10,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import midsummer.lordecalculator.R;
+import midsummer.lordecalculator.ui.addKQSX.AddKQSXActivity;
+import midsummer.lordecalculator.ui.merchantManage.MerchantManageActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -46,7 +49,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
     private void onBtnCalculateResultClicked(){
-
+        startActivity(new Intent(this, AddKQSXActivity.class));
     }
 
     private void onBtnHistoryClicked(){
@@ -54,6 +57,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void onBtnManageMerchantClick(){
-
+        startActivity(new Intent(this, MerchantManageActivity.class));
     }
 }

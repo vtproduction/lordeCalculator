@@ -62,6 +62,9 @@ public class KQSX extends RealmObject{
         return getResults().subList(23,4);
     }
 
+    public KQSX() {
+    }
+
     public KQSX(long date, List<Integer> results) {
 
         this.date = date;

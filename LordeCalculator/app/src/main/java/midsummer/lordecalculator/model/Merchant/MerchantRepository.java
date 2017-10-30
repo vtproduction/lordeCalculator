@@ -16,7 +16,7 @@ public class MerchantRepository implements MerchantDataSource {
     }
 
     @Override
-    public Merchant getMerchantById(int merchantId) {
+    public Merchant getMerchantById(String merchantId) {
         return realm.where(Merchant.class).equalTo("id", merchantId).findFirst();
     }
 
@@ -31,17 +31,33 @@ public class MerchantRepository implements MerchantDataSource {
     }
 
     @Override
-    public void updateMerchant(final Merchant merchant) {
+    public void updateMerchant(final String merchantId,
+                               final String merchantName,
+                               final String merchantPhone,
+                               final boolean isOwner,
+                               final float rateLO,
+                               final float rateDE,
+                               final float rateXIEN,
+                               final long remainLoan) {
+        final Merchant merchant = getMerchantById(merchantId);
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
+                if (merchant == null) return;
+                merchant.setName(merchantName);
+                merchant.setPhone(merchantPhone);
+                merchant.setOwner(isOwner);
+                merchant.setRateLO(rateLO);
+                merchant.setRateDE(rateDE);
+                merchant.setRateXIEN(rateXIEN);
+                merchant.setRemainLoan(remainLoan);
                 realm.copyToRealmOrUpdate(merchant);
             }
         });
     }
 
     @Override
-    public void deleteMerchant(int merchantId) {
+    public void deleteMerchant(String merchantId) {
         final Merchant merchant = getMerchantById(merchantId);
         if (merchant != null)
             realm.executeTransaction(new Realm.Transaction() {

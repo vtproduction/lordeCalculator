@@ -18,6 +18,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.home.HomeActivity"></activity>
+        <activity android:name=".ui.addEditMerchant.AddEditMerchantActivity"/>
+        <activity android:name=".ui.merchantManage.MerchantManageActivity"/>
+        <activity android:name=".ui.addKQSX.AddKQSXActivity"/>
     </application>
 
 </manifest>
