@@ -2,6 +2,7 @@ package midsummer.lordecalculator.model.LordeStatistic;
 
 import io.realm.Realm;
 import io.realm.RealmList;
+import midsummer.lordecalculator.helper.RandomString;
 import midsummer.lordecalculator.model.LordeData.LordeData;
 import midsummer.lordecalculator.model.Merchant.MerchantDataSource;
 import midsummer.lordecalculator.model.Merchant.MerchantRepository;
@@ -12,19 +13,31 @@ import midsummer.lordecalculator.model.Merchant.MerchantRepository;
 
 public class LordeStatisticRepository implements LordeStatisticDataSource {
     private Realm realm;
-    private MerchantDataSource mMerchant;
     public LordeStatisticRepository(Realm realm) {
         this.realm = realm;
-        this.mMerchant = new MerchantRepository(realm);
     }
 
     @Override
-    public String addNew(int merChantId, long date, RealmList<LordeData> data) {
-        return null;
+    public String addNew(final String merChantId, final long date, final RealmList<LordeData> data) {
+        final String id = new RandomString(12).nextString();
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                LordeStatistic lordeStatistic = new LordeStatistic();
+                lordeStatistic.setData(data);
+                lordeStatistic.setDate(date);
+                lordeStatistic.setId(id);
+                lordeStatistic.setMerChantId(merChantId);
+                lordeStatistic.setTotalIncome(0);
+                lordeStatistic.setTotalOutcome(0);
+                realm.copyToRealmOrUpdate(lordeStatistic);
+            }
+        });
+        return id;
     }
 
     @Override
     public LordeStatistic get(long date) {
-        return null;
+        return realm.where(LordeStatistic.class).equalTo("date", date).findFirst();
     }
 }

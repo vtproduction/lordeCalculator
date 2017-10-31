@@ -11,11 +11,15 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmList;
+import midsummer.lordecalculator.helper.DateTimeFormatHelper;
 import midsummer.lordecalculator.helper.LogUtil;
 import midsummer.lordecalculator.helper.RandomString;
 import midsummer.lordecalculator.model.LordeData.LordeData;
 import midsummer.lordecalculator.model.LordeData.LordeDataSource;
 import midsummer.lordecalculator.model.LordeData.LordeRepository;
+import midsummer.lordecalculator.model.LordeStatistic.LordeStatistic;
+import midsummer.lordecalculator.model.LordeStatistic.LordeStatisticDataSource;
+import midsummer.lordecalculator.model.LordeStatistic.LordeStatisticRepository;
 import midsummer.lordecalculator.model.Merchant.Merchant;
 import midsummer.lordecalculator.model.Merchant.MerchantDataSource;
 import midsummer.lordecalculator.model.Merchant.MerchantRepository;
@@ -30,6 +34,7 @@ public class AddLordeDataPresenter implements AddLordeDataContract.Presenter {
     private AddLordeDataContract.View mView;
     private LordeDataSource mLorde;
     private MerchantDataSource mMerchant;
+    private LordeStatisticDataSource mLordeStatistic;
     private String merchantId;
 
     public AddLordeDataPresenter(Realm realm, AddLordeDataContract.View mView) {
@@ -37,6 +42,7 @@ public class AddLordeDataPresenter implements AddLordeDataContract.Presenter {
         this.mView = mView;
         this.mLorde = new LordeRepository(realm);
         this.mMerchant = new MerchantRepository(realm);
+        this.mLordeStatistic = new LordeStatisticRepository(realm);
     }
 
 
@@ -98,10 +104,12 @@ public class AddLordeDataPresenter implements AddLordeDataContract.Presenter {
     @Override
     public void submit(SimpleRecyclerView recyclerView) {
         if (recyclerView == null || recyclerView.getItemCount() == 0) return;
+        RealmList<LordeData> lordeDataRealmList = new RealmList<>();
         for (SimpleCell cell : recyclerView.getAllCells())
             if (cell.getItem() instanceof LordeData){
                 LordeData lordeData = (LordeData)cell.getItem();
-                mLorde.setLordeData(lordeData);
+                lordeDataRealmList.add(lordeData);
             }
+        mLordeStatistic.addNew(merchantId, DateTimeFormatHelper.DateTimeNowToLong(), lordeDataRealmList);
     }
 }

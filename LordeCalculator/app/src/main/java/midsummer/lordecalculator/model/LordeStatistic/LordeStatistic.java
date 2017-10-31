@@ -14,7 +14,7 @@ public class LordeStatistic extends RealmObject{
     @PrimaryKey
     public String id;
 
-    public int merChantId;
+    public String merChantId;
     public long date;
     public RealmList<LordeData> data;
     public long totalIncome;
@@ -28,11 +28,11 @@ public class LordeStatistic extends RealmObject{
         this.id = id;
     }
 
-    public int getMerChantId() {
+    public String getMerChantId() {
         return merChantId;
     }
 
-    public void setMerChantId(int merChantId) {
+    public void setMerChantId(String merChantId) {
         this.merChantId = merChantId;
     }
 

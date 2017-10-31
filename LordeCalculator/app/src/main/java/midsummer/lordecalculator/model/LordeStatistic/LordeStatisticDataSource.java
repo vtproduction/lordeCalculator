@@ -8,6 +8,6 @@ import midsummer.lordecalculator.model.LordeData.LordeData;
  */
 
 public interface LordeStatisticDataSource {
-    String addNew(int merChantId, long date, RealmList<LordeData> data);
+    String addNew(String merChantId, long date, RealmList<LordeData> data);
     LordeStatistic get(long date);
 }
