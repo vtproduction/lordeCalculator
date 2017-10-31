@@ -21,6 +21,7 @@ import midsummer.lordecalculator.helper.LogUtil;
 import midsummer.lordecalculator.model.Merchant.Merchant;
 import midsummer.lordecalculator.ui.addEditMerchant.AddEditMerchantActivity;
 import midsummer.lordecalculator.ui.addEditMerchant.AddEditMerchantPresenter;
+import midsummer.lordecalculator.ui.addLordeData.AddLordeActivity;
 
 /**
  * Created by NIENLM on 10/24/17.
@@ -81,7 +82,7 @@ public class MerchantManageActivity extends AppCompatActivity implements Merchan
 
     @Override
     public void onMerchantDetailClick(Merchant merchant) {
-        startActivity(new Intent(this, AddEditMerchantActivity.class).putExtra(AddEditMerchantPresenter.KEY_MERCHANT,merchant.getId()));
+        startActivity(new Intent(this, AddLordeActivity.class).putExtra("merchantId",merchant.getId()));
     }
 
     @OnClick({R.id.btn_back, R.id.btn_add_new})

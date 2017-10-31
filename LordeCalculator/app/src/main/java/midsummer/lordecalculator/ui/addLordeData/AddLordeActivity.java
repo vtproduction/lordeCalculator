@@ -4,14 +4,19 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.jaychang.srv.SimpleRecyclerView;
 
 import org.joda.time.DateTime;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,6 +28,7 @@ import midsummer.lordecalculator.helper.LogUtil;
 import midsummer.lordecalculator.helper.StringUtil;
 import midsummer.lordecalculator.helper.ToastUtil;
 import midsummer.lordecalculator.model.LordeData.LordeData;
+import midsummer.lordecalculator.model.LordeData.LordeDataSource;
 import midsummer.lordecalculator.model.Merchant.Merchant;
 
 /**
@@ -66,14 +72,17 @@ public class AddLordeActivity extends AppCompatActivity implements AddLordeDataC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_lorde_data);
         ButterKnife.bind(this);
+        if (mPresenter == null)
+            mPresenter = new AddLordeDataPresenter(Realm.getDefaultInstance(), this);
         mPresenter.start(getIntent());
     }
+
+
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (mPresenter == null)
-            mPresenter = new AddLordeDataPresenter(Realm.getDefaultInstance(), this);
+
     }
 
     @Override
@@ -139,18 +148,25 @@ public class AddLordeActivity extends AppCompatActivity implements AddLordeDataC
                 mPresenter.submit(recyclerView);
                 break;
             case R.id.btn_add_1:
+                showAddNewDialog(btnAdd1.getText().toString(), LordeDataSource.TYPE_LO);
                 break;
             case R.id.btn_add_2:
+                showAddNewDialog(btnAdd1.getText().toString(),LordeDataSource.TYPE_DE);
                 break;
             case R.id.btn_add_3:
+                showAddNewDialog(btnAdd1.getText().toString(),LordeDataSource.TYPE_XIEN);
                 break;
             case R.id.btn_add_4:
+                showAddNewDialog(btnAdd1.getText().toString(),LordeDataSource.TYPE_QUAY);
                 break;
             case R.id.btn_add_5:
+                showAddNewDialog(btnAdd1.getText().toString(),LordeDataSource.TYPE_DAU);
                 break;
             case R.id.btn_add_6:
+                showAddNewDialog(btnAdd1.getText().toString(),LordeDataSource.TYPE_DIT);
                 break;
             case R.id.btn_add_7:
+                showAddNewDialog(btnAdd1.getText().toString(),LordeDataSource.TYPE_DAU_DIT);
                 break;
             case R.id.btn_add_8:
                 break;
@@ -158,7 +174,43 @@ public class AddLordeActivity extends AppCompatActivity implements AddLordeDataC
     }
 
 
-    private void showAddNewDialog(int type){
+    private void showAddNewDialog(String header, final int type){
+        try {
+            View view = LayoutInflater.from(this).inflate(R.layout.item_add_lorde_data, null);
 
+            TextView title = view.findViewById(R.id.txt_header);
+            title.setText(header);
+
+            TextView unit = view.findViewById(R.id.txt_unit);
+            unit.setText(type == 1 ? "ĐIểm" : "nghìn");
+
+            final EditText edtNumbers = view.findViewById(R.id.edt_numbers);
+            final EditText edtValue = view.findViewById(R.id.edt_value);
+
+            final MaterialDialog dialog = new  MaterialDialog.Builder(this)
+                    .cancelable(true)
+                    .customView(view, false)
+                    .show();
+
+            view.findViewById(R.id.btn_done).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        List<Integer> numbers = StringUtil.StringToIntArray(edtNumbers.getText().toString(), type);
+                        int value = Integer.parseInt(edtValue.getText().toString());
+                        if (numbers.size() == 0 || value < 0){
+                            displayMessage("Nhập sai!");
+                        }else {
+                            dialog.dismiss();
+                            mPresenter.addNew(type, numbers, value);
+                        }
+                    }catch (Exception e){
+                        LogUtil.e(e);
+                    }
+                }
+            });
+        }catch (Exception e){
+            LogUtil.e(e);
+        }
     }
 }

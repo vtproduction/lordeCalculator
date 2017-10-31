@@ -62,7 +62,7 @@ public class AddLordeDataPresenter implements AddLordeDataContract.Presenter {
             }
             if (trueType == -1) return;
             LordeData lordeData =new LordeData();
-            String id = new RandomString(6).nextString();
+            String id = new RandomString(6, true).nextString();
             long now = DateTime.now().getMillis();
             lordeData.setId(now + Long.parseLong(id));
 

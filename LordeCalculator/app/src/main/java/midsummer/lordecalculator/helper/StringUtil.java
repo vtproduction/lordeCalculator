@@ -1,6 +1,8 @@
 package midsummer.lordecalculator.helper;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import midsummer.lordecalculator.model.LordeData.LordeDataSource;
 
@@ -53,10 +55,51 @@ public class StringUtil {
                 return "lô";
             case LordeDataSource.TYPE_XIEN:
                 return "xiên";
-            case LordeDataSource.TYPE_XIEN_QUAY:
-                return "xiên quay";
             default:
                 return "khác";
         }
+    }
+
+
+    public static List<Integer> StringToIntArray(String source, int type){
+        source = source.trim().replaceAll("\\s+"," ");
+        List<Integer> integers = new ArrayList<>();
+        String[] tmp = source.split(" ");
+        List<Integer> intTemp = new ArrayList<>();
+        for (String stringTmp : tmp){
+            try {
+                int val = Integer.parseInt(stringTmp);
+                if (0 <= val && val <= 99) intTemp.add(val);
+                else if (val > 99){
+                    LogUtil.d(stringTmp.substring(0,1) + " " + stringTmp.substring(1,2) + " " + stringTmp.substring(0,2));
+                    int val1 = Integer.parseInt(stringTmp.substring(0,2));
+                    int val2 = Integer.parseInt(stringTmp.substring(1,3));
+                    intTemp.add(val1);
+                    intTemp.add(val2);
+                }
+            }catch (Exception e){
+                LogUtil.e(e);
+            }
+        }
+        switch (type){
+            case LordeDataSource.TYPE_LO:
+            case LordeDataSource.TYPE_DE:
+            case LordeDataSource.TYPE_XIEN:
+            case LordeDataSource.TYPE_QUAY:
+                return intTemp;
+            case LordeDataSource.TYPE_DAU:
+                return DauDitHelper.getDau(intTemp.get(0));
+            case LordeDataSource.TYPE_DIT:
+                return DauDitHelper.getDit(intTemp.get(0));
+            case LordeDataSource.TYPE_DAU_DIT:
+                integers.addAll(DauDitHelper.getDau(intTemp.get(0)));
+                integers.addAll(DauDitHelper.getDit(intTemp.get(0)));
+                return integers;
+
+
+        }
+
+
+        return integers;
     }
 }

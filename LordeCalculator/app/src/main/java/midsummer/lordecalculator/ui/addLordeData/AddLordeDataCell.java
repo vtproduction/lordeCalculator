@@ -13,6 +13,7 @@ import com.jaychang.srv.SimpleViewHolder;
 import com.jaychang.srv.Updatable;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import midsummer.lordecalculator.R;
 import midsummer.lordecalculator.helper.LogUtil;
 import midsummer.lordecalculator.helper.StringUtil;
@@ -90,7 +91,7 @@ public class AddLordeDataCell extends SimpleCell<LordeData, AddLordeDataCell.Add
 
         public AddLordeViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            ButterKnife.bind(this, itemView);
         }
 
 
@@ -98,9 +99,9 @@ public class AddLordeDataCell extends SimpleCell<LordeData, AddLordeDataCell.Add
             try {
                 String tmp = "";
                 for (int number : lordeData.getNumbers())
-                    tmp += number + " ";
+                    tmp += (number > 9 ? "" : "0") + number + " ";
                 txtLordeContent.setText(tmp);
-                txtLordeValue.setText("x" + lordeData.getValue());
+                txtLordeValue.setText("x " + lordeData.getValue());
                 txtLordeType.setText(StringUtil.getLordeDataType(lordeData.getType()));
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override

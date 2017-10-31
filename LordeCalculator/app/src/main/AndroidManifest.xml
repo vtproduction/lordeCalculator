@@ -21,6 +21,7 @@
         <activity android:name=".ui.addEditMerchant.AddEditMerchantActivity"/>
         <activity android:name=".ui.merchantManage.MerchantManageActivity"/>
         <activity android:name=".ui.addKQSX.AddKQSXActivity"/>
+        <activity android:name=".ui.addLordeData.AddLordeActivity"/>
     </application>
 
 </manifest>
